@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-import settings
+import modules.settings as settings
+
 
 TOKEN = settings.TKN
 
@@ -13,10 +14,21 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 async def rdy(ctx):
     await ctx.send("yes")
 
-
-#/rdy
-@bot.tree.command(name="rdy", description="rdy.")
-async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message("yes")
+@bot.command()
+async def sonuda_now(ctx):
+    #ステータス設定
+    status = 2
+    if status == 2:
+         status_str = "そぬだは、暇していますよ。"
+    elif status == 1:
+         status_str = "そぬだは、ゲームしてます。"
+    elif status == 2:
+         status_str = "そぬだは、就寝中です。"
+    elif status == 3:
+         status_str = "そぬだは、仕事中をしてます。"
+    elif status == 4:
+         status_str = "そぬだは、私の記録パターン外の行動中です。"
+        
+    await ctx.send(status_str)
 
 bot.run(TOKEN)
